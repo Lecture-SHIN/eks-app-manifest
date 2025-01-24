@@ -1,0 +1,34 @@
+# eks-app.yaml
+apiVersion: v1
+kind: Service   
+metadata:
+  name: eks-app-service
+spec:
+  selector:
+    app.kubernetes.io/name: eks-app
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: argocd-app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: argocd-app
+    spec:
+      containers:
+      - name: eks-app-container
+        image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:f78386720bb6e8c919610d2c54a3aea6786d14af
+        ports:
+          - protocol: TCP
+            containerPort: 8080
