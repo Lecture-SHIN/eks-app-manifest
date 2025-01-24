@@ -57,9 +57,9 @@ spec:
             - name: MYSQL_PASSWORD
               value: app12345
           volumeMounts:
-          - name: db-storage
-            mountPath: /data
-        volumes:
+            - name: db-storage
+              mountPath: /data
+      volumes:
         - name: db-storage
           persistentVolumeClaim:
             claimName: db-claim
