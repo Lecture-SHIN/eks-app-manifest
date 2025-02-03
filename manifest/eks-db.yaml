@@ -6,4 +6,4 @@ metadata:
   name: db-service
 spec:
   type: ExternalName
-  externalName: RDS endpoint
+  externalName: eks-rds.czmimmqw2v5z.ap-northeast-2.rds.amazonaws.com
