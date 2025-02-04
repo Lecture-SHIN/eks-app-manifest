@@ -6,6 +6,8 @@ metadata:
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8080"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
   labels:
     app.kubernetes.io/name: eks-app
     app.kubernetes.io/instance: eks-app
@@ -15,6 +17,7 @@ spec:
     app.kubernetes.io/name: eks-app
     app.kubernetes.io/instance: eks-app
   type: LoadBalancer
+  loadBalancerClass: service.k8s.aws/nlb
   ports:
     - name: http
       protocol: TCP
