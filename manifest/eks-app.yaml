@@ -3,32 +3,14 @@ apiVersion: v1
 kind: Service   
 metadata:
   name: eks-app-service
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
-    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
-    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8080"
-    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-  labels:
-    helm.sh/chart: eks-app-0.1.0
-    app.kubernetes.io/name: eks-app
-    app.kubernetes.io/instance: eks-app
-    app.kubernetes.io/version: "1.0.0"
-    app.kubernetes.io/managed-by: Helm
 spec:
   selector:
     app.kubernetes.io/name: eks-app
-    app.kubernetes.io/instance: eks-app
   type: LoadBalancer
-  loadBalancerClass: service.k8s.aws/nlb
   ports:
-    - name: http
-      protocol: TCP
-      port: 8080
-      targetPort: 8080
-    - name: prometheus
-      protocol: TCP
-      port: 9090
-      targetPort: 9090
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -46,7 +28,7 @@ spec:
     spec:
       containers:
       - name: eks-app-container
-        image: 463470973103.dkr.ecr.ap-northeast-2.amazonaws.com/eks-app:a23fb7e66736333c47c7ddfc098b52570a779bb0
+        image: 463470973103.dkr.ecr.ap-northeast-2.amazonaws.com/eks-app:2faaea4eac67d02bf39f722293e05e5ab8971ec5
         ports:
           - protocol: TCP
             containerPort: 8080
