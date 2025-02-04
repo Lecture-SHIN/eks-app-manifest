@@ -9,9 +9,11 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8080"
     service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
   labels:
+    helm.sh/chart: eks-app-0.1.0
     app.kubernetes.io/name: eks-app
     app.kubernetes.io/instance: eks-app
     app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
 spec:
   selector:
     app.kubernetes.io/name: eks-app
